@@ -220,9 +220,7 @@ function createBaseForm() {
           if (inputProps[action]) {
             inputProps[action] = debounceFn(inputProps[action], 1000);
           }
-          inputProps[action] = _this3.getCacheBind(name, action, decorateFn(function () {
-            return _this3.onCollectValidate;
-          }, 1000));
+          inputProps[action] = _this3.getCacheBind(name, action, _this3.onCollectValidate);
         });
 
         // make sure that the value will be collect

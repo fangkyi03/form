@@ -90,9 +90,9 @@ export function normalizeValidateRules(validate, rules, validateTrigger) {
     return newItem;
   });
   if (rules) {
-    rule = rules.map(function (e) {
+    rules = rules.map(function (e) {
       if (e.validator) {
-        e.validator = debounceFn(e.validate, 1000);
+        e.validator = debounceFn(e.validator, 1000);
       }
       return e;
     });

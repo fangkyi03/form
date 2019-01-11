@@ -242,7 +242,7 @@ function createBaseForm(option = {}, mixins = []) {
           if (inputProps[action]) {
             inputProps[action] = debounceFn(inputProps[action], 1000);
           }
-          inputProps[action] = this.getCacheBind(name, action, decorateFn(() => this.onCollectValidate, 1000));
+          inputProps[action] = this.getCacheBind(name, action, this.onCollectValidate);
         });
 
         // make sure that the value will be collect
