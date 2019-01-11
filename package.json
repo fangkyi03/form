@@ -34,8 +34,8 @@
     }
   },
   "scripts": {
-    "build": "rc-tools run build",
-    "compile": "rc-tools run compile --babel-runtime",
+    "compile": "rc-tools run build",
+    "build": "rc-tools run compile --babel-runtime",
     "start": "rc-tools run server"
   },
   "jest": {

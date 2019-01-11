@@ -88,6 +88,12 @@ export function normalizeValidateRules(validate, rules, validateTrigger) {
     return newItem;
   });
   if (rules) {
+    rule = rules.map((e)=>{
+      if (e.validator) {
+        e.validator = debounceFn(e.validate, 1000);
+      }
+      return e
+    })
     validateRules.push({
       trigger: validateTrigger ? [].concat(validateTrigger) : [],
       rules,
