@@ -1,6 +1,23 @@
 import hoistStatics from 'hoist-non-react-statics';
 import warning from 'warning';
 
+var timer = null;
+var num = 0
+var params = null
+export function debounceFn(func, delay) {
+  return (...args) => {
+    params = args
+    if (!timer) {
+      timer = setTimeout(() => {
+        func.apply(this, params);
+        clearTimeout(timer);
+        timer = null
+      }, delay);
+    }
+  };
+};
+
+
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'WrappedComponent';
 }

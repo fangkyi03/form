@@ -2,6 +2,28 @@ import _extends from 'babel-runtime/helpers/extends';
 import hoistStatics from 'hoist-non-react-statics';
 import warning from 'warning';
 
+var timer = null;
+var num = 0;
+var params = null;
+export function debounceFn(func, delay) {
+  var _this = this;
+
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    params = args;
+    if (!timer) {
+      timer = setTimeout(function () {
+        func.apply(_this, params);
+        clearTimeout(timer);
+        timer = null;
+      }, delay);
+    }
+  };
+};
+
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'WrappedComponent';
 }

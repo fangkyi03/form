@@ -19,6 +19,7 @@ import {
   getParams,
   isEmptyObject,
   flattenArray,
+  debounceFn
 } from './utils';
 
 const DEFAULT_TRIGGER = 'onChange';
@@ -238,7 +239,9 @@ function createBaseForm(option = {}, mixins = []) {
         const validateRules = normalizeValidateRules(validate, rules, validateTrigger);
         const validateTriggers = getValidateTriggers(validateRules);
         validateTriggers.forEach((action) => {
-          if (inputProps[action]) return;
+          if (inputProps[action]) {
+            inputProps[action] = debounceFn(inputProps[action], 1000);
+          }
           inputProps[action] = this.getCacheBind(name, action, decorateFn(() => this.onCollectValidate, 1000));
         });
 

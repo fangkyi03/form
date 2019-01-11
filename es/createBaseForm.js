@@ -13,7 +13,7 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import decorateFn from 'lodash/debounce';
 import createFieldsStore from './createFieldsStore';
-import { argumentContainer, identity, normalizeValidateRules, getValidateTriggers, getValueFromEvent, hasRules, getParams, isEmptyObject, flattenArray } from './utils';
+import { argumentContainer, identity, normalizeValidateRules, getValidateTriggers, getValueFromEvent, hasRules, getParams, isEmptyObject, flattenArray, debounceFn } from './utils';
 
 var DEFAULT_TRIGGER = 'onChange';
 
@@ -217,7 +217,9 @@ function createBaseForm() {
         var validateRules = normalizeValidateRules(validate, rules, validateTrigger);
         var validateTriggers = getValidateTriggers(validateRules);
         validateTriggers.forEach(function (action) {
-          if (inputProps[action]) return;
+          if (inputProps[action]) {
+            inputProps[action] = debounceFn(inputProps[action], 1000);
+          }
           inputProps[action] = _this3.getCacheBind(name, action, decorateFn(function () {
             return _this3.onCollectValidate;
           }, 1000));
