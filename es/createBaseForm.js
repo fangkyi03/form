@@ -11,6 +11,7 @@ import AsyncValidator from 'async-validator';
 import warning from 'warning';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import decorateFn from 'lodash/debounce';
 import createFieldsStore from './createFieldsStore';
 import { argumentContainer, identity, normalizeValidateRules, getValidateTriggers, getValueFromEvent, hasRules, getParams, isEmptyObject, flattenArray } from './utils';
 
@@ -217,7 +218,9 @@ function createBaseForm() {
         var validateTriggers = getValidateTriggers(validateRules);
         validateTriggers.forEach(function (action) {
           if (inputProps[action]) return;
-          inputProps[action] = _this3.getCacheBind(name, action, _this3.onCollectValidate);
+          inputProps[action] = _this3.getCacheBind(name, action, decorateFn(function () {
+            return _this3.onCollectValidate;
+          }, 1000));
         });
 
         // make sure that the value will be collect

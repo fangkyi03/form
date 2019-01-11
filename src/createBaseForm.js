@@ -7,6 +7,7 @@ import AsyncValidator from 'async-validator';
 import warning from 'warning';
 import get from 'lodash/get';
 import set from 'lodash/set';
+import decorateFn from 'lodash/debounce';
 import createFieldsStore from './createFieldsStore';
 import {
   argumentContainer,
@@ -238,7 +239,7 @@ function createBaseForm(option = {}, mixins = []) {
         const validateTriggers = getValidateTriggers(validateRules);
         validateTriggers.forEach((action) => {
           if (inputProps[action]) return;
-          inputProps[action] = this.getCacheBind(name, action, this.onCollectValidate);
+          inputProps[action] = this.getCacheBind(name, action, decorateFn(() => this.onCollectValidate, 1000));
         });
 
         // make sure that the value will be collect
