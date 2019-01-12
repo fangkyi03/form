@@ -3,7 +3,6 @@ import hoistStatics from 'hoist-non-react-statics';
 import warning from 'warning';
 
 var timer = null;
-var num = 0;
 var params = null;
 export function debounceFn(func, delay) {
   var _this = this;
@@ -90,12 +89,12 @@ export function normalizeValidateRules(validate, rules, validateTrigger) {
     return newItem;
   });
   if (rules) {
-    rules = rules.map(function (e) {
-      if (e.validator) {
-        e.validator = debounceFn(e.validator, 1000);
-      }
-      return e;
-    });
+    // rules = rules.map(e => {
+    //   if (e.validator) {
+    //     e.validator = debounceFn(e.validator, 1000);
+    //   }
+    //   return e;
+    // });
     validateRules.push({
       trigger: validateTrigger ? [].concat(validateTrigger) : [],
       rules: rules

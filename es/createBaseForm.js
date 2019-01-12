@@ -218,7 +218,8 @@ function createBaseForm() {
         var validateTriggers = getValidateTriggers(validateRules);
         validateTriggers.forEach(function (action) {
           if (inputProps[action]) {
-            inputProps[action] = debounceFn(inputProps[action], 1000);
+            return;
+            // inputProps[action] = debounceFn(inputProps[action], 1000);
           }
           inputProps[action] = _this3.getCacheBind(name, action, _this3.onCollectValidate);
         });
